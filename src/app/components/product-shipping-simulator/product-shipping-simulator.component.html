@@ -1,0 +1,37 @@
+<mat-card>
+  <mat-card-header>
+    <mat-card-title>Simular Frete</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="shippingForm" (ngSubmit)="simulateShipping()">
+      <mat-form-field appearance="fill">
+        <mat-label>CEP de Destino</mat-label>
+        <input matInput formControlName="cep" required>
+        <mat-error *ngIf="shippingForm.get('cep')?.invalid">CEP é obrigatório</mat-error>
+        <span class="address" *ngIf="address$ | async as address">
+          {{ address.address }}, {{ address.neighborhood.name }}, {{ address.city.name }} - {{ address.state.abbreviation }}
+        </span>
+      </mat-form-field>
+      <mat-form-field appearance="fill">
+        <mat-label>Quantidade</mat-label>
+        <input matInput formControlName="quantity" type="number" required>
+        <mat-error *ngIf="shippingForm.get('quantity')?.invalid">Quantidade é obrigatória</mat-error>
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" type="submit" [disabled]="shippingForm.invalid">Simular Frete</button>
+    </form>
+  </mat-card-content>
+</mat-card>
+
+<mat-card *ngIf="shipping$ | async as shipping">
+  <mat-card-header>
+    <mat-card-title>Valor do frete</mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <ul>
+      <li>Endereço: <strong>{{ (address$ | async)?.address }}</strong></li>
+      <li>Valor: <strong>{{ (shipping.freight_cost * this.shippingForm.controls["quantity"].value) | currency}}</strong></li>
+      <li>Prazo: <strong>{{shipping.duration}} {{shipping.duration_unit}}</strong></li>
+    </ul>
+  </mat-card-content>
+</mat-card>

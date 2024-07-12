@@ -1,0 +1,21 @@
+.container {
+  margin: 10px;
+  padding: 10px;
+}
+
+.product-form {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+mat-form-field {
+  width: 100%;
+}
+
+button {
+  width: auto; /* Ajusta a largura do botão */
+  grid-column: span 1; /* O botão ocupará uma única coluna */
+  margin-top: 16px;
+  justify-self: start; /* Alinha o botão à esquerda */
+}

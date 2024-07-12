@@ -1,0 +1,13 @@
+<div *ngIf="configuration" class="container">
+  <h2>Configuration Details</h2>
+  <mat-card>
+    <mat-card-title>{{ configuration.key }}</mat-card-title>
+    <mat-card-content>
+      <p><strong>Value:</strong> {{ configuration.value }}</p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [routerLink]="['/configuration/edit', configuration.id]">Edit</button>
+      <button mat-button [routerLink]="['/configurations']">Back</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

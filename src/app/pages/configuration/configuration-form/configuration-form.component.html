@@ -1,0 +1,14 @@
+<div class="container">
+  <h2>{{ isEditMode ? 'Edit Configuration' : 'New Configuration' }}</h2>
+  <form [formGroup]="configurationForm" (ngSubmit)="onSubmit()">
+    <mat-form-field appearance="fill">
+      <mat-label>Key</mat-label>
+      <input matInput formControlName="key">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Value</mat-label>
+      <input matInput formControlName="value">
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>
+  </form>
+</div>

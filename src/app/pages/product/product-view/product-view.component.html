@@ -1,0 +1,24 @@
+<div class="container">
+  <a mat-button routerLink="/products">Back to Product List</a>
+  <div class="product-view-container" *ngIf="product$ | async as product">
+    <div class="product-details">
+      <mat-card>
+        <mat-card-header>
+          <mat-card-title>{{ product.title }}</mat-card-title>
+          <mat-card-subtitle>{{ product.category }}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image [src]="product.image" alt="{{ product.title }}">
+        <mat-card-content>
+          <p>{{ product.description }}</p>
+          <p><strong>Price: </strong> {{ product.price | currency }}</p>
+          <p><strong>Weight: </strong> {{ product.weight }} kg</p>
+          <p><strong>Dimensions: </strong> {{ product.length }} x {{ product.width }} x {{ product.height }} cm</p>
+        </mat-card-content>
+      </mat-card>
+    </div>
+    <div class="shipping-simulator">
+      <app-product-shipping-simulator [product]="product"></app-product-shipping-simulator>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,43 @@
+import {inject, Injectable} from '@angular/core';
+import {HttpClient} from "@angular/common/http";
+import {FreightResponse, ShipmentCalculation} from "../models/shipment.model";
+import {Product} from "../pages/product/product.model";
+import {map, Observable, switchMap} from "rxjs";
+import {environment} from "../../environments/environment";
+import {ConfigurationService} from "./configuration.service";
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ShippingService {
+  private http = inject(HttpClient);
+  private freightApiUrl = environment.freightApiUrl;
+  private senderPostalCode = "";
+  private contractCode = "8ec38ad7-7a96-4027-a1b9-5d815b03719a";
+  private configurationService = inject(ConfigurationService);
+  private config = this.configurationService.getConfigurations()
+    .pipe(map( configs => configs.filter(c =>
+      c.key === "DEFAULT_CONTRACT" || c.key === "SENDER_POSTAL_CODE")));
+
+  getShippingCost(postal_code: string, product: Product): Observable<FreightResponse> {
+    return this.config.pipe(
+      switchMap( configs => {
+        this.contractCode = configs.find(c => c.key === "DEFAULT_CONTRACT")?.value ?? this.contractCode;
+        this.senderPostalCode = configs.find(c => c.key === "SENDER_POSTAL_CODE")?.value ?? this.senderPostalCode;
+        return this.http.post<FreightResponse>(`${this.freightApiUrl}`, {
+          weight: product.weight,
+          dimensions: {
+            height: product.height,
+            width: product.width,
+            length: product.length
+          },
+          contract_id: this.contractCode,
+          origin_postal_code: this.senderPostalCode,
+          destination_postal_code: postal_code,
+          shipment_type: "ground"
+        } as ShipmentCalculation);
+      })
+    )
+  }
+
+}

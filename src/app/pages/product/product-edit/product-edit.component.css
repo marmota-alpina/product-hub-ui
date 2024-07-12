@@ -1,0 +1,12 @@
+/* Estilos para o formulário de edição de produto */
+
+/* Estilização dos campos do formulário */
+mat-form-field {
+  display: block;
+  margin-bottom: 20px; /* Espaço entre campos */
+}
+
+/* Estilização para os botões ou ações relacionadas ao formulário */
+button-container {
+  margin-top: 20px; /* Espaço acima dos botões */
+}

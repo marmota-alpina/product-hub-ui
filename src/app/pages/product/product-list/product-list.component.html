@@ -1,0 +1,28 @@
+<div>
+  <h1>Product List</h1>
+  <button [routerLink]="['/products/new']" mat-raised-button color="primary">Add Product</button>
+</div>
+<div class="product-list" *ngIf="products$ | async as products">
+  <div *ngFor="let product of products" class="product-item">
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title>{{ product.title }}</mat-card-title>
+        <mat-card-subtitle>
+          <a [routerLink]="['/products']" [queryParams]="{ category: product.category }">{{ product.category }}</a>
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image [src]="product.image" alt="{{ product.title }}">
+      <mat-card-content>
+        <p>
+          {{ product.description | slice: 0:120 }}{{ product.description.length > 120 ? '...' : '' }}
+        </p>
+        <p><strong>Price: </strong> {{ product.price | currency }}</p>
+      </mat-card-content>
+      <mat-card-actions class="actions">
+        <button color="secundary" [routerLink]="['/products/edit', product.id]" mat-button>Edit</button>
+        <button [routerLink]="['/products/view', product.id]" mat-button>View</button>
+        <button (click)="deleteProduct(product.id)" mat-button>Delete</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>

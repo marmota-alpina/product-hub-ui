@@ -1,0 +1,42 @@
+/* src/app/pages/product/product-list/product-list.component.css */
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.product-item {
+  flex: 1 1 calc(33.333% - 3rem);
+  box-sizing: border-box;
+  margin: 1rem;
+}
+
+mat-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+mat-card img {
+  height: 200px;
+  width: auto;
+  object-fit: contain;
+  align-self: center;
+/*  Alimhar ao centro*/
+
+}
+
+mat-card-header, mat-card-content, mat-card-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.actions {
+  align-self: center;
+  max-width: 300px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
