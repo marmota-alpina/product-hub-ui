@@ -1,4 +1,12 @@
 /* src/app/pages/product/product-list/product-list.component.css */
+.actions-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 16px;
+
+}
+
 .product-list {
   display: flex;
   flex-wrap: wrap;

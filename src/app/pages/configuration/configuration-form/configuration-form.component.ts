@@ -29,8 +29,8 @@ export class ConfigurationFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.configurationForm = this.fb.group({
-      key: ['', Validators.required],
-      value: ['', Validators.required],
+      key: [undefined, [Validators.required, Validators.minLength(3)]],
+      value: [undefined,[Validators.required, Validators.maxLength(255)]],
     });
 
     const id = this.route.snapshot.paramMap.get('id');

@@ -36,4 +36,7 @@ export class ProductService {
   deleteProduct(id: string): Observable<void> {
     return this.http.delete<void>(`${this.productApiUrl}/${id}`);
   }
+  synchronizeProduct(): Observable<boolean> {
+    return this.http.get<any>(`${this.productApiUrl}/synchronize`);
+  }
 }

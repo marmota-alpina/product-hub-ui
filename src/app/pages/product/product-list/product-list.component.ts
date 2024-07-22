@@ -40,7 +40,7 @@ import {MatInput} from "@angular/material/input";
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent {
-  private productService = inject(ProductService);
+  protected productService = inject(ProductService);
   private route = inject(ActivatedRoute)
   products$ =this.route.queryParams.pipe(
     switchMap(params => this.productService.getProducts(params['category']))
@@ -58,5 +58,16 @@ export class ProductListComponent {
 
   onSearch(value: any | null) {
     console.log(value)
+  }
+
+  synchronizeProducts() {
+    this.productService.synchronizeProduct().subscribe({
+      next: () => {
+        this.products$ = this.productService.getProducts();
+      },
+      error: (err) => {
+        console.error(err);
+      }
+    });
   }
 }

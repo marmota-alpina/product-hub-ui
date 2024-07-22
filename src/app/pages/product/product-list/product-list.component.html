@@ -1,6 +1,9 @@
 <div>
   <h1>Product List</h1>
-  <button [routerLink]="['/products/new']" mat-raised-button color="primary">Add Product</button>
+  <div class="actions-header">
+    <button [routerLink]="['/products/new']" mat-raised-button color="primary">Add Product</button>
+    <button mat-raised-button (click)="synchronizeProducts()">Import Products</button>
+  </div>
 </div>
 <div class="product-list" *ngIf="products$ | async as products">
   <div *ngFor="let product of products" class="product-item">

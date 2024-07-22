@@ -5,6 +5,7 @@ import {Product} from "../pages/product/product.model";
 import {map, Observable, switchMap} from "rxjs";
 import {environment} from "../../environments/environment";
 import {ConfigurationService} from "./configuration.service";
+import {DEFAULT_CONTRACT_KEY, SENDER_POSTAL_CODE_KEY} from "../models/configuration.model";
 
 @Injectable({
   providedIn: 'root'
@@ -17,13 +18,13 @@ export class ShippingService {
   private configurationService = inject(ConfigurationService);
   private config = this.configurationService.getConfigurations()
     .pipe(map( configs => configs.filter(c =>
-      c.key === "DEFAULT_CONTRACT" || c.key === "SENDER_POSTAL_CODE")));
+      c.key === DEFAULT_CONTRACT_KEY || c.key === SENDER_POSTAL_CODE_KEY)));
 
   getShippingCost(postal_code: string, product: Product): Observable<FreightResponse> {
     return this.config.pipe(
       switchMap( configs => {
-        this.contractCode = configs.find(c => c.key === "DEFAULT_CONTRACT")?.value ?? this.contractCode;
-        this.senderPostalCode = configs.find(c => c.key === "SENDER_POSTAL_CODE")?.value ?? this.senderPostalCode;
+        this.contractCode = configs.find(c => c.key === DEFAULT_CONTRACT_KEY)?.value ?? this.contractCode;
+        this.senderPostalCode = configs.find(c => c.key === SENDER_POSTAL_CODE_KEY)?.value ?? this.senderPostalCode;
         return this.http.post<FreightResponse>(`${this.freightApiUrl}`, {
           weight: product.weight,
           dimensions: {

@@ -9,6 +9,6 @@
       <mat-label>Value</mat-label>
       <input matInput formControlName="value">
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">{{ isEditMode ? 'Update' : 'Create' }}</button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="configurationForm.invalid">{{ isEditMode ? 'Update' : 'Create' }}</button>
   </form>
 </div>
